@@ -10,7 +10,7 @@ function storage() {
   return {
 
     get: () => {
-      return library;
+      return getJson();
     },
 
     save: (book) => {
@@ -52,12 +52,9 @@ function saveJson(obj) {
 }
 
 
-// function getJson() {
-//   let file = fs.readFile('./express/storage.json', "utf8", (error, data) => {
-//     if (error) throw error;
-//     console.log(data);
-//   });
-//   return file;
-// }
+function getJson() {
+  let file = JSON.parse(fs.readFileSync('./express/storage.json', "utf8"));
+  return file;
+}
 
 module.exports = storage;
