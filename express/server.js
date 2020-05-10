@@ -8,12 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get('/books', (req, res) => {
-  // function json() sends response in json format, you need to pass in the function object
-  // and it'll parse it
   res.json(storage.get());
-  // you can't call send function after json() because json()
-  // releases response, and you don't have access to it
-  // res.send('Get books');
 });
 
 app.get('/books/:id', (req, res) => {
@@ -22,8 +17,14 @@ app.get('/books/:id', (req, res) => {
 });
 
 app.post('/books', (req, res) => {
-  const result = storage.save(req.body);
-  res.send(result);
+
+  if (req.body.title && req.body.author) {
+    const result = storage.save(req.body);
+    res.send(result);
+  }
+  else {
+    res.status(422).send('Title or Author is not found');
+  }
 });
 
 app.put('/books/:id', (req, res) => {

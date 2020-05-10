@@ -26,8 +26,10 @@ function storage() {
 
     update: (id, body) => {
       let book = library.find((book) => book.id === Number(id));
-      book.title = body.title;
-      book.author = body.author;
+
+      for (let key in body) {
+        book[key] = body[key];
+      }
       saveJson(library);
       return book;
     },
@@ -47,7 +49,6 @@ function saveJson(obj) {
 
   fs.writeFile('./express/storage.json', json.toString(), (error, data) => {
     if (error) throw error;
-    console.log("data", data);
   });
 }
 
