@@ -39,6 +39,7 @@ function storage() {
       library.splice(book, 1);
       saveJson(library);
       return library;
+
     },
   }
 }

@@ -18,7 +18,7 @@ app.get('/books/:id', (req, res) => {
 
 app.post('/books', (req, res) => {
 
-  if (req.body.title && req.body.author) {
+  if (getValid(req.body)) {
     const result = storage.save(req.body);
     res.send(result);
   }
@@ -40,3 +40,10 @@ app.delete('/books/:id', (req, res) => {
 app.listen(PORT, () => {
   console.log('Server started...');
 });
+
+function getValid(obj) {
+  if( obj.title && obj.author) {
+        return true;
+  }
+  return false;
+}
