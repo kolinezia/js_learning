@@ -4,13 +4,13 @@ let fs = require('fs');
 
 
 function storage() {
-  let library = [];
-  let id = 0;
+  let library = getJson();
+  let id = library[library.length-1].id + 1;
 
   return {
 
     get: () => {
-      return getJson();
+      return library;
     },
 
     save: (book) => {
